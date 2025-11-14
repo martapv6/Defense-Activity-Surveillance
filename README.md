@@ -15,7 +15,7 @@ This project requires Python 3.9+ and uses a dedicated virtual environment for d
 
 1.  **Clone the Repository:**
     ```bash
-    git clone [https://github.com/martapv6/Defense-Activity-Surveillance.git]
+    git clone https://github.com/martapv6/Defense-Activity-Surveillance.git
     cd Defense-Activity-Surveillance
     ```
 
