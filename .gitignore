@@ -1,0 +1,17 @@
+# Python Virtual Environment
+.venv/
+__pycache__/
+
+# Dependencies/Builds
+dist/
+build/
+*.egg-info/
+
+# Large Binary Files (MUST BE IGNORED)
+*.pth
+*.pt
+*.bin
+*.nc
+
+# Sensitive Files
+.env
