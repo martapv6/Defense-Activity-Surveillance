@@ -83,21 +83,12 @@ def search_images(lat, lon, date_from, date_to, name = '#', type = 'default', ma
     except Exception as e:
         print(f"Eroare: {e}")
         return []
-    
 
-def get_image_details(image_id):
-    params = {"api_key": API_KEY}
-    url = f"{BASE_URL}/api/images/{image_id}/"
-    
-    try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()
-        return response.json()
-    except Exception as e:
-        print(f"Eroare la obtinere detalii: {e}")
-        return None
-
-
+# pentru reincarcare dataset ulterior
+def save_metadata(images, filename="spectator_metadata.json"):
+    with open(filename, 'w') as f:
+        json.dump(images, f, indent=2)
+        
 def download_image(filename, output_dir = IMAGES_DIR):
     os.makedirs(output_dir, exist_ok=True)
 
@@ -185,12 +176,6 @@ def display_results(images):
         print(f"Cloud Cover: {cloud_cover}%")
         print()
 
-
-# pentru reincarcare dataset ulterior
-def save_metadata(images, filename="spectator_metadata.json"):
-    with open(filename, 'w') as f:
-        json.dump(images, f, indent=2)
-        
 
 if __name__ == "__main__":
     for loc_name in LOCATIONS:
