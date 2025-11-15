@@ -60,10 +60,10 @@ The pipeline is based on **Transfer Learning** using the **Sentinel1\_SwinB\_SI*
 
 Run the main pipeline script from the project root. This script orchestrates the loading, processing, and feature extraction: (we dont have this yet but we might need it to test our code)
 
-```bash
+```bach
 python src/main_extractor.py
 
-
+```
 3.  Annotated Dataset: MVRSD (Military Vehicle Remote Sensing Dataset)
 
 This project also integrates a pre-annotated optical remote–sensing dataset to validate the pipeline on real object-detection data.
@@ -101,4 +101,11 @@ Conceptually, an annotation record has the structure:
 
 ```text
 image_name, x_min, y_min, x_max, y_max, class_id
+
+
+Conceptually, an annotation record has the structure:
+
+```text
+image_name, x_min, y_min, x_max, y_max, class_id
+```
 
