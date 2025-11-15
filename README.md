@@ -118,23 +118,6 @@ Normalization is performed with respect to the image width and height (640x640):
 After conversion, the MVRSD dataset has the same structure as the standard YOLO training datasets and can be used directly for fine-tuning or evaluation.
 
 
-3.4 Example Transformation Code
-The conversion is implemented in:
-
-src/MVRSD_dataset/transformation.py
-
-Below is a minimal example that performs the conversion from the original XML annotation file to YOLO .txt label files:
-
-```python
-from pathlib import Path
-from MVRSD_dataset.transformation import convert_mvrsd_csv_to_yolo
-
-DATASET_ROOT = Path("src/MVRSD_dataset/data")
-
-convert_mvrsd_csv_to_yolo(
-    csv_path=DATASET_ROOT / "annotations_mvrsd.csv",
-    labels_out_dir=DATASET_ROOT / "labels",
-)
 
 
 
