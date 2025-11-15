@@ -1,8 +1,14 @@
 # src/pipelines/transformation.py
 import torch
 import numpy as np
+import cv2
 
 TARGET_PATCH_SIZE = 256
+
+def transform_image_to_ndarray(image_path) -> np.ndarray:
+    img = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
+    return cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
 
 def transform_for_inference(sar_patch: np.ndarray) -> torch.Tensor:
     """
