@@ -7,6 +7,17 @@ This repository contains the foundational code for a robust pipeline designed fo
 
 ---
 
+### 👥 Team Members
+
+* Dan Andrei-Delian
+* Mirescu Georgiana-Daniela
+* Stan Catalin-Andrei
+* Tablet Valeriu-Ionut
+* Vacaru Marta-Patricia
+
+---
+
+
 ## 1. ⚙️ Prerequisites and Setup
 
 This project requires Python 3.9+ and uses a dedicated virtual environment for deep learning dependencies (PyTorch).
