@@ -62,3 +62,43 @@ Run the main pipeline script from the project root. This script orchestrates the
 
 ```bash
 python src/main_extractor.py
+
+
+3.  Annotated Dataset: MVRSD (Military Vehicle Remote Sensing Dataset)
+
+This project also integrates a pre-annotated optical remote–sensing dataset to validate the pipeline on real object-detection data.
+
+### 3.1 Dataset Description
+
+We use the **MVRSD – Military Vehicle Remote Sensing Dataset**, derived from Google Earth imagery.  
+Key characteristics:
+
+- **Images:** 3,000 RGB satellite images
+- **Resolution:** 0.3 m per pixel
+- **Image size:** 640 × 640 px
+- **Annotations:** 32,626 labeled vehicle instances
+
+The dataset contains five fine-grained vehicle classes:
+
+1. **SMV** – Small Military Vehicles  
+2. **LMV** – Large Military Vehicles  
+3. **AFV** – Armored Fighting Vehicles  
+4. **MCV** – Military Construction Vehicles  
+5. **CV** – Civilian Vehicles  
+
+### 3.2 Original Annotation Format
+
+In the original MVRSD release, objects are annotated with **axis-aligned (horizontal) bounding boxes**.  
+Each labeled instance is defined by pixel-based coordinates:
+
+- `x_min`, `y_min` – top-left corner  
+- `x_max`, `y_max` – bottom-right corner  
+- `class_id` – one of the 5 classes above  
+
+Coordinates are expressed in pixels with respect to the 640×640 image grid.
+
+Conceptually, an annotation record has the structure:
+
+```text
+image_name, x_min, y_min, x_max, y_max, class_id
+
