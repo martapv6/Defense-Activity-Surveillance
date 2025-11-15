@@ -1,8 +1,3 @@
-# !!!!!!!!!!!!!!!!!
-# pip install sentinelsat rasterio numpy
-# pip install requests python-dotenv gdal
-
-
 # maybe SENTINEL HUB for more data in the future
 
 import os
