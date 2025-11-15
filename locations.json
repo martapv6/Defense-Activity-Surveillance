@@ -1,0 +1,58 @@
+{
+    "hostomel": {
+        "lat": 50.6035,
+        "lon": 30.1919,
+        "date_from": "2022-02-24",
+        "date_to": "2022-03-15",
+        "name": "Hostomel Airport, Ucraina",
+        "type": "military"
+    },
+    "mariupol": {
+        "lat": 47.0971,
+        "lon": 37.5431,
+        "date_from": "2022-03-01",
+        "date_to": "2022-05-20",
+        "name": "Mariupol, Ucraina",
+        "type": "military"
+    },
+    "ramstein": {
+        "lat": 49.4369,
+        "lon": 7.6003,
+        "date_from": "2022-02-01",
+        "date_to": "2022-06-30",
+        "name": "Ramstein Air Base, Germania",
+        "type": "military"
+    },
+    "sevastopol": {
+        "lat": 44.6167,
+        "lon": 33.5333,
+        "date_from": "2022-04-01",
+        "date_to": "2024-11-15",
+        "name": "Sevastopol Naval Base, Crimeea",
+        "type": "military"
+    },
+    "kogalniceanu": {
+        "lat": 44.3622,
+        "lon": 28.4883,
+        "date_from": "2022-02-01",
+        "date_to": "2022-06-30",
+        "name": "Mihail Kogălniceanu Air Base, România",
+        "type": "military"
+    },
+    "coanda": {
+        "lat": 44.5711,
+        "lon": 26.0850,
+        "date_from": "2024-06-01",
+        "date_to": "2024-11-15",
+        "name": "Henri Coandă Airport, România",
+        "type": "civilian"
+    },
+    "frankfurt": {
+        "lat": 50.0379,
+        "lon": 8.5622,
+        "date_from": "2024-06-01",
+        "date_to": "2024-11-15",
+        "name": "Frankfurt Airport, Germania",
+        "type": "civilian"
+    }
+}
