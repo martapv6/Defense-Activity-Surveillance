@@ -123,7 +123,7 @@ The conversion is implemented in:
 
 src/MVRSD_dataset/transformation.py
 
-Below is a minimal example that performs the conversion from the original CSV annotation file to YOLO .txt label files:
+Below is a minimal example that performs the conversion from the original XML annotation file to YOLO .txt label files:
 
 ```python
 from pathlib import Path
