@@ -38,7 +38,7 @@ IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 FEATURES_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def search_images(lat, lon, date_from, date_to, max_cloud = 20, bbox_size = 0.01):
+def search_images(lat, lon, date_from, date_to, name = '#', type = 'default', max_cloud = 20, bbox_size = 0.01):
     # cautare imag satelit pe Spectator
     # max_cloud = procent max de nori acceptat
     # bbox_size = 0.05 inseamna un patrat de 0.1 grade in jurul locatiei
@@ -57,7 +57,7 @@ def search_images(lat, lon, date_from, date_to, max_cloud = 20, bbox_size = 0.01
         "date_from": date_from,
         "date_to": date_to,
         "cc_less_than": max_cloud,
-        "satellites": "Sentinel-2A,Sentinel-2B"  # si/sau Sentinel-1 ??????????
+        "satellites": "Sentinel-2A,Sentinel-2B"  # si/sau Sentinel-1 ?
     }
 
     url = f"{BASE_URL}/imagery/" # request la API
@@ -195,29 +195,25 @@ def display_results(images):
 def save_metadata(images, filename="spectator_metadata.json"):
     with open(filename, 'w') as f:
         json.dump(images, f, indent=2)
+        
 
-# def example_multiple_locations():
-
-
-
-# TEST !!!!!!!!!!!!!!!!!!!!!!!!
 if __name__ == "__main__":
-    loc = LOCATIONS["hostomel"]
-
-    print(LOCATIONS)
-    # images = search_images(
-    #     lat=loc["lat"],
-    #     lon=loc["lon"],
-    #     date_from="2024-10-01",
-    #     date_to="2024-11-15",
-    #     max_cloud=20
-    # )
-
-    # display_results(images)
-
-    # if images:
-        # save_metadata(images, "metadata_test.json")
-    
-    # download_image("metadata_test.json")
+    for loc_name in LOCATIONS:
+        loc_data = LOCATIONS[loc_name]
+        
+        print(loc_data)
+        if loc_data:
+            images_data = search_images(
+                lat=loc_data['lat'],
+                lon=loc_data['lon'],
+                date_from=loc_data['date_from'],
+                date_to=loc_data['date_to'],
+                name=loc_data.get('name', '#'),
+                type=loc_data.get('type', 'default')
+            )
+            display_results(images_data)
+            save_location_path = "metadata_"+loc_name+".json"
+            save_metadata(images_data, save_location_path)
+            download_image(save_location_path)
 
 
