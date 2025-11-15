@@ -15,4 +15,34 @@ build/
 
 # Sensitive Files
 .env
-locations.json
+
+
+src/MVSRD_dataset/data/
+D:\sateliti\
+*.jpg
+*.png
+*.xml
+*.txt
+
+# fisiere mari
+*.pt
+*.pth
+
+# sistem
+.DS_Store
+Thumbs.db
+
+
+
+# ignore mvrsd dataset
+src/MVSRD_dataset/data/
+*.jpg
+*.png
+*.xml
+*.txt
+*.pt
+*.pth
+
+# system crap
+.DS_Store
+Thumbs.db
