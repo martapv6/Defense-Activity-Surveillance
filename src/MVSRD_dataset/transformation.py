@@ -89,9 +89,7 @@ def batch_convert(xml_folder: Path, labels_out_dir: Path):
 
 
 if __name__ == "__main__":
-
     here = Path(__file__).resolve().parent
-
 
     xml_dir = Path(r"D:\sateliti\MVRSD_dataset\data\labels\train\xml")
     labels_out = Path(r"D:\sateliti\MVRSD_dataset\data_transf\labels\train")

@@ -129,6 +129,28 @@ Normalization is performed with respect to the image width and height (640x640):
 After conversion, the MVRSD dataset has the same structure as the standard YOLO training datasets and can be used directly for fine-tuning or evaluation.
 
 
+## 4. 🚀 Training & Inference
 
+Before going to the next steps you should run
 
+```bash
+make build
+```
 
+### 4.1 Training
+    
+Dockerized environment for training to be run in WSL using 
+
+```bash
+make train
+```
+
+We use MLflow to visualize the metrics during training. 
+
+### 4.2 Inference
+
+Dockerized environment for inference to be run in WSL using 
+
+```bash
+make inference
+```
