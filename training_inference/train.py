@@ -17,6 +17,7 @@ from src.transformation import transform_image_to_ndarray, transform_for_inferen
 
 import mlflow
 from tqdm import tqdm
+from torch.cuda.amp import autocast, GradScaler
 
 CLASSES = ["SMV", "LMV", "AFV", "MCV", "CV"]
 NAME_TO_ID = {name: i + 1 for i, name in enumerate(CLASSES)}
@@ -147,9 +148,14 @@ print(f"Checkpoint: {CHECKPOINT_PATH if CHECKPOINT_PATH else 'None'}")
 satlas_model = load_satlas_backbone(MODEL_ID, CHECKPOINT_PATH)
 satlas_model.to(DEVICE)
 backbone = SatlasBackboneWrapper(satlas_model, out_channels=128)
-print(f"Backbone number of parameters {sum([p.numel() for p in backbone.parameters()])}")
+backbone = torch.compile(backbone, mode="max-autotune")
+print(
+    f"Backbone number of parameters {sum([p.numel() for p in backbone.parameters()])}"
+)
 num_classes = len(CLASSES) + 1
-
+print("Freezing Satlas backbone...")
+for name, p in backbone.named_parameters():
+    p.requires_grad = False
 model = FasterRCNN(
     backbone=backbone,
     num_classes=num_classes,
@@ -161,13 +167,18 @@ model = FasterRCNN(
 ).to(DEVICE)
 
 params = [p for p in model.parameters() if p.requires_grad]
-print(
-    f"Number of parameters {sum([p.numel() for p in model.parameters() if p.requires_grad])}"
-)
-optimizer = optim.SGD(params, lr=0.005, momentum=0.9, weight_decay=0.0005)
-lr_scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=3, gamma=0.1)
+
+optimizer = optim.AdamW(params, lr=0.0001)
+
+# lr_scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=3, gamma=0.1)
 
 num_epochs = 20
+model.train()
+print(
+    f"Number of trainable parameters {sum([p.numel() for p in model.parameters() if p.requires_grad])}"
+)
+
+scaler = GradScaler()
 
 with mlflow.start_run():
     # mlflow.log_param("model_id", MODEL_ID)
@@ -176,24 +187,25 @@ with mlflow.start_run():
     # mlflow.log_param("device", DEVICE)
 
     for epoch in range(num_epochs):
-        model.train()
         running_loss = 0.0
 
         for images, targets in tqdm(train_loader):
             images = [img.squeeze(0).to(DEVICE) for img in images]
 
             targets = [{k: v.to(DEVICE) for k, v in t.items()} for t in targets]
-
-            loss_dict = model(images, targets)
-            losses = sum(loss for loss in loss_dict.values())
-
             optimizer.zero_grad()
-            losses.backward()
-            optimizer.step()
 
-            running_loss += losses.item()
+            with autocast(dtype=torch.float16, enabled=(DEVICE == "cuda")):
+                loss_dict = model(images, targets)  # Faster R-CNN
+                loss = sum(loss for loss in loss_dict.values())
 
-        lr_scheduler.step()
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+
+            running_loss += loss.item()
+
+        # lr_scheduler.step()
         avg_loss = running_loss / max(1, len(train_loader))
         print(f"Epoch {epoch + 1}/{num_epochs}, train loss: {avg_loss:.4f}")
         mlflow.log_metric("train_loss", avg_train_loss, step=epoch)
