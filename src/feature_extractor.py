@@ -8,7 +8,7 @@ from .transformation import transform_for_inference, tile_image
 
 """Configuration"""
 # ID-ul modelului pe care il folosim de la satlaspretrain (Sentinel1, Swin-v2-Base, Single-Image Input)
-S1_MODEL_ID = "Sentinel1_SwinB_SI"
+S2_MODEL_ID = "Sentinel2_SwinB_SI_RGB"
 CHECKPOINT_PATH = "src/model/marine_placeholder_weights.pth"  # momentan aici am pus weights-urile pt antrenarea modelului de marine pana le facem pe ale noastre
 
 weights_manager = satlaspretrain_models.Weights()
@@ -31,7 +31,7 @@ def load_satlas_backbone(model_id: str, checkpoint_path: str | None = None):
         # print("Loaded checkpoint.")
         # print("Missing keys:", missing)
         # print("Unexpected keys:", unexpected)
-        # model.eval()
+        model.eval()
         return model
     except Exception as e:
         print(
@@ -49,7 +49,7 @@ def integrate_and_infer(
 ) -> Dict[
     tuple, np.ndarray
 ]:  # raw_sar_data este un numpy array care contine datele "raw ale imaginii" -> asta s-ar obtine cu din partea lui Ionut+Dana (alt fisier .py in mod normal)
-    model = load_satlas_s1_backbone(CHECKPOINT_PATH)
+    model = load_satlas_backbone(CHECKPOINT_PATH)
     if model is None:
         return {}
 

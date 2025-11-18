@@ -13,13 +13,13 @@ def transform_image_to_ndarray(image_path) -> np.ndarray:
 
 def transform_for_inference(sar_patch: np.ndarray) -> torch.Tensor:
     """
-    Aplicare Satlas S-1 Normalization (vezi Normalization.md din repo-ul lor)
+    Aplicare Satlas S-2 Normalization (vezi Normalization.md din repo-ul lor)
     + convertire patch in PyTorch tensor format (1, C, H, W).
     """
     # 1. Convertire in PyTorch tensor (must be float idk)
     tensor = torch.from_numpy(sar_patch).float()
 
-    # 2. Normalizarea Satlas Sentinel-1: Divide by 255 and clip to 0-1
+    # 2. Normalizarea Satlas Sentinel-2: Divide by 255 and clip to 0-1
     tensor = tensor / 255.0
     tensor = torch.clip(tensor, 0.0, 1.0)
 
