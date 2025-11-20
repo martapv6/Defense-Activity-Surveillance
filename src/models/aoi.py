@@ -26,7 +26,7 @@ class AreaOfInterest(Base):
 
     # Define relationships
     owner = relationship("User", back_populates="areas_of_interest")
-    # detections = relationship("Detection", back_populates="aoi") # Will be added later
+    detections = relationship("Detection", back_populates="aoi")
 
     def __repr__(self):
         return f"<AOI(name='{self.name}', user_id={self.user_id})>"
