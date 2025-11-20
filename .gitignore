@@ -15,7 +15,7 @@ build/
 
 # Sensitive Files
 .env
-.proiectdefenserospin-3fca23b4b35c.json
+proiectdefenserospin-3fca23b4b35c.json
 
 mlruns/
 training_inference/data/
