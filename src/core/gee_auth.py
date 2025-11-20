@@ -18,10 +18,3 @@ def initialize_gee():
         # Fallback for local testing if preferred, but not for production
         ee.Initialize() 
         print("GEE initialized for local user.") 
-
-# In app/main.py
-from fastapi import FastAPI
-app = FastAPI()
-@app.on_event("startup")
-def startup_event():
-    initialize_gee()
