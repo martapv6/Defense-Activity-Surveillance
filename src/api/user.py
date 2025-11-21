@@ -54,7 +54,8 @@ async def register_user(user_data: UserCreate, db: AsyncSession = Depends(get_db
         email=db_user.email,
         full_name=db_user.full_name,
         role_name=UserRole.user,
-        is_active=db_user.is_active
+        is_active=db_user.is_active,
+        created_at=db_user.created_at
     )
 
 
